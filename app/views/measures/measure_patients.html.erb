@@ -102,7 +102,9 @@ $(document).ready(function() {
      <% @page_results.each do |patient_container| -%>
        <tr class="antiNumerator">
          <% patient = patient_container['value'] -%>
-         <td><%= (patient['medical_record_id'] || 'UNK') %></td>
+         <td>
+		 <%= link_to (patient['medical_record_id'] || 'UNK'), :controller=>"patients", :action=>"show", :id=>patient['patient_id'] %>
+		 </td>
          <td><%= patient['last'] %></td>
          <td><%= patient['first'] %></td>
          <td><%= age_from_time(patient['birthdate']) || 'UNK' %></td>
