@@ -13,7 +13,7 @@
 	  <div class="groupList">
 	  	<ul>
 				<li>
-					<label class="open"><%= t('home.core_measure.core_measures') %></label>
+					<label class="open"><%= t('index.core_measure.core_measures') %></label>
 					<div class="measureItemList expandableList">
 						<ul>
 							<% @core_measures.each do |measure| -%>
@@ -23,7 +23,7 @@
 				       <li class="<%= measure_selected(measure['id'], current_user.selected_measures) %>" data-measure-id="<%= measure['id'] %>" data-sub-measures="<%=measure['subs'].join(',')%>" data-category="Core Alternate"><span class="note">**</span><%= measure['name'] %></li>
 				     <% end %>
 						</ul>
-						<p class="note"><em>** core alternate measures</em></p>
+						<p class="note"><em>** <%= t('index.alternate_measures.core_alternate_measures') %></em></p>
 					</div>
 				</li>
 			</ul>
@@ -31,7 +31,7 @@
 		<div class="groupList">
 	  	<ul>
 				<li>
-					<label class="open">Alternate Measures</label>
+					<label class="open"><%= t('index.alternate_measures.alt_measure')%></label>
 					<div class="expandableList">
 				
 						<% @categories.each do |category| %>
@@ -62,7 +62,7 @@
     </div>
     <% elsif can?(:manage, :providers) && @providers_by_team%>
     <p class="note">
-      Providers
+      <%= t('index.provider') %> 
     </p>
     <div class="groupList">
       <ul>
@@ -83,13 +83,13 @@
       </ul>
     </div>
     <% end %>
-   <p class="note">
-      Demographics
+    <p class="note">
+      <%= t('index.demographics') %>
     </p>
     <div class="groupList">
       <ul>
         <li>
-          <label>Races</label>
+          <label> <%= t('index.races') %></label>
           <div class="filterItemList expandableList" style="display:none">
             <ul>
 							 <li class="selectAll checked">All</li>
@@ -102,7 +102,7 @@
           </div>
         </li>
         <li>
-          <label>Ethnicities</label>
+          <label><%= t('index.ethnicities') %></label>
           <div class="filterItemList expandableList" style="display:none">
             <ul>
 							 <li class="selectAll checked">All</li>
@@ -115,7 +115,7 @@
           </div>
         </li>
         <li>
-          <label>Genders</label>
+          <label><%= t('index.gender') %></label>
           <div class="filterItemList expandableList" style="display:none">
             <ul>
 							 <li class="selectAll checked">All</li>
@@ -128,7 +128,7 @@
           </div>
         </li>
         <li>
-          <label>Languages</label>
+          <label><%= t('index.languages') %></label>
           <div class="filterItemList expandableList" style="display:none">
             <ul>
 							 <li class="selectAll checked">All</li>
@@ -148,13 +148,13 @@
         
         <% if (@selected_provider) %>
           <dl>
-            <dt>Provider:</dt>
+            <dt><%= t('index.provider') %>:</dt>
             <dd class="practiceName"><h1><%=@selected_provider.full_name%></h1></dd>
           </dl>
         <% else %>
           <h1><%= current_user.company.to_s %></h1>
           <dl>
-            <dt>Practice:</dt>
+            <dt><%= t('index.practice') %>:</dt>
             <dd class="practiceName"><h1><%=APP_CONFIG['practice_name']%></h1></dd>
           </dl>
         <% end %>
@@ -174,7 +174,7 @@
             </ul>
           <% end %>
           
-          <dt>Reporting Period:</dt>
+          <dt><%= t('index.reporting_period') %>:</dt>
           <dd>
             <span id="measurementPeriodStartDate"><%= Time.at(@period_start).strftime("%m/%d/%Y") %></span> - 
             <input type="text" class="measurementPeriodEndDate" id="measurementPeriodEndDate" size="8" value="<%= Time.at(@effective_date).strftime("%m/%d/%Y") %>">
@@ -182,32 +182,32 @@
           </dd>
         </dl>
         <dl>
-          <dt># of Patients: </dt>
+          <dt><%= t('index.num_patients') %></dt>
           <dd><%= @patient_count %></dd>
         </dl>
         <% unless (@selected_provider) %>
           <dl>
-            <dt># of Providers: </dt>
+            <dt><%= t('index.num_providers') %>: </dt>
             <dd><%= Provider.all.count %> </dd>
           </dl>
         <% end %>
         <div class="clear"></div>
         <div class="dashboardTabs">
-          <span class="dashboardTab active">Measures</span>
-          <span class="dashboardTab">Comparison</span>
+          <span class="dashboardTab active"><%= t('index.medidas') %></span>
+          <span class="dashboardTab"><%= t('index.comparison') %></span>
         </div>
         <div class="legend">
-          <div class="numerator"></div><span>numerator</span>
-          <div class="denominator"></div><span>denominator</span>
-          <div class="patients"></div><span>reporting patients</span>
-          <div class="exclusions"></div><span>exclusions</span>
+          <div class="numerator"></div><span><%= t('index.numerator') %></span>
+          <div class="denominator"></div><span><%= t('index.denomiator') %></span>
+          <div class="patients"></div><span><%= t('index.reporting_patients') %></span>
+          <div class="exclusions"></div><span><%= t('index.exclusions') %></span>
         </div>
         <br/>
       </div><!-- end #measureDetailTable --><br><br>
 			<table class="measureTable" style="float:left">
-				<tr style="<%= display_header(@core_measures, current_user.selected_measures)%>" class="headerRow"><td colspan="6">Core Measures</td></tr>
+				<tr style="<%= display_header(@core_measures, current_user.selected_measures)%>" class="headerRow"><td colspan="6"><%= t('index.core_measure.core_measures') %></td></tr>
 				<%= render :partial => "measure", :collection => @core_measures %>
-				<tr style="<%= display_header(@core_alt_measures, current_user.selected_measures)%>" class="headerRow"><td colspan="6">Core Alternate Measures</td></tr>
+				<tr style="<%= display_header(@core_alt_measures, current_user.selected_measures)%>" class="headerRow"><td colspan="6"><%= t('index.alternate_measures.core_alternate_measures') %></td></tr>
 				<%= render :partial => "measure", :collection => @core_alt_measures %>
 				
 				<% @alt_measures.each do |category, measures| %>

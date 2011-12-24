@@ -1,0 +1,11 @@
+es:
+    top_nav:
+        welcome: "Bienvenida"
+        help: "Ayuda"
+        account: "Cuenta"
+        logs: "Los Registros"
+        logout: "Salir"
+        login: "Ingresar"
+        admin: "Administración"
+        providers: "Proveedores"
+
