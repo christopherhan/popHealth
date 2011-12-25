@@ -6,7 +6,7 @@
   <%= submit_tag("Search") %>
 <% end %>
 
-<% if @results.length > 0 %>
+<% if @results and @results.length > 0 %>
 <p><%= @results.length %> result(s)</p>
 <table>
 	<tr>
