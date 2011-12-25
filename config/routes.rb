@@ -29,6 +29,7 @@ PopHealth::Application.routes.draw do
   match 'records', :to => 'records#create', :via => :post
   
   match 'patients', :to => 'patients#index', :via => :get
+  match 'patients/search', :to=>'patients#search', :via=>:get
   match 'patients/show/:id', :to => 'patients#show'
   match 'patients/toggle_excluded/:id/:measure_id(/:sub_id)', :to => 'patients#toggle_excluded', :via => :post
 

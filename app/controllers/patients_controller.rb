@@ -34,6 +34,12 @@ class PatientsController < ApplicationController
   def show
   end
   
+  def search
+    if params[:fn] or params[:ln]
+      @results = Record.where(:first => /^(#{params[:fn]})/i).or(:last => /^(#{params[:ln]})/i)
+    end 
+  end
+  
   def toggle_excluded
     ManualExclusion.toggle!(@patient, params[:measure_id], params[:sub_id], params[:rationale], current_user)
     redirect_to :controller => :measures, :action => :patients, :id => params[:measure_id], :sub_id => params[:sub_id]

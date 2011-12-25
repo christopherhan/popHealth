@@ -1,0 +1,31 @@
+<%= form_tag("/patients/search", :method => "get") do %>
+  <%= label_tag(:fn, "First Name:") %>
+  <%= text_field_tag(:fn) %>
+  <%= label_tag(:ln, "Last Name:") %>
+  <%= text_field_tag(:ln) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+<% if @results.length > 0 %>
+<p><%= @results.length %> result(s)</p>
+<table>
+	<tr>
+		<td>Patient ID</td>
+		<td>First Name</td>
+		<td>Last Name</td>
+		<td>Gender</td>
+		<td>DOB</td>
+	</tr>
+<% @results.each do |result| %>
+	<tr>
+		<td><%= link_to result.patient_id, :controller => "patients", :action=>"show", :id=>result.id %></td>
+		<td><%= result.first %></td>
+		<td><%= result.last %></td>
+		<td><%= result.gender %></td>
+		<td><%= result.birthdate %></td>
+	</tr>
+<% end %>
+</table>
+<% else %>
+No results found
+<% end %>
