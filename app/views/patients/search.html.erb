@@ -22,7 +22,7 @@
 		<td><%= result.first %></td>
 		<td><%= result.last %></td>
 		<td><%= result.gender %></td>
-		<td><%= result.birthdate %></td>
+		<td><%= Time.at(result.birthdate).strftime("%d.%b.%Y") %></td>
 	</tr>
 <% end %>
 </table>

@@ -10,7 +10,7 @@ PopHealth::Application.routes.draw do
   post "admin/update_npi"
 
   get "logs/index"
-  
+  match "dashboard", :to=> 'dashboard#index', :as => :stats, :via => :get
   match 'measures', :to => 'measures#index', :as => :dashboard, :via => :get
   match "measure/:id(/:sub_id)/providers", :to => "measures#providers", :via => :get
   match 'measure/:id(/:sub_id)', :to => 'measures#show', :as => :measure, :via => :get
