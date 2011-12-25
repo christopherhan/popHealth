@@ -1,0 +1,14 @@
+<% content_for :head do %>
+<style type="text/css">
+#age-gender, #age-groups { width: 50%; }
+</style>
+<script type="text/javascript">
+	window.num_females = <%= @num_females %>;
+	window.num_males = <%= @num_males %>;
+</script>
+<%= javascript_include_tag 'charts/age-gender.js', :cache => true %>
+<%= javascript_include_tag 'charts/age-groups.js', :cache => true %>
+<% end -%>
+
+<div id="age-gender"></div>
+<div id="age-groups"></div>
