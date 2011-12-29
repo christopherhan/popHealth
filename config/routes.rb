@@ -1,5 +1,7 @@
 PopHealth::Application.routes.draw do
 
+  get "reports/index"
+
   devise_for :users, :controllers => {:registrations => "registrations"}
 
   get "admin/users"
@@ -30,6 +32,7 @@ PopHealth::Application.routes.draw do
   
   match 'patients', :to => 'patients#index', :via => :get
   match 'patients/search', :to=>'patients#search', :via=>:get
+  match 'patients/export/:id', :to=>'patients#export'
   match 'patients/show/:id', :to => 'patients#show'
   match 'patients/toggle_excluded/:id/:measure_id(/:sub_id)', :to => 'patients#toggle_excluded', :via => :post
 

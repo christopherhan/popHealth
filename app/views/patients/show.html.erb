@@ -69,7 +69,9 @@
           </tbody>
         </table>
       </div>
-        
+      <div id="export">
+	    <%= link_to "Generate PDF Report", :controller => "patients", :action => "export", :id => @patient.id %>
+	  </div>
       <div class="lowerborder">
         <table class="patientDemo main">
           <tbody>
@@ -221,7 +223,7 @@
               <tbody>
                 <tr>
                   <th>tetanus</th>
-                  <td><li>1. 03.April.2003<li><li>2. 05.April.2005</li><li>3. INCOMPLETE</li></td>
+                  <td><li>1. 03.April.2003</li><li>2. 05.April.2005</li><li>3. INCOMPLETE</li></td>
                 </tr>
                 <tr>
                   <th>TB</th>

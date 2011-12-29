@@ -1,3 +1,5 @@
+require 'prawn'
+
 class PatientsController < ApplicationController
   include MeasuresHelper
 
@@ -43,6 +45,50 @@ class PatientsController < ApplicationController
   def toggle_excluded
     ManualExclusion.toggle!(@patient, params[:measure_id], params[:sub_id], params[:rationale], current_user)
     redirect_to :controller => :measures, :action => :patients, :id => params[:measure_id], :sub_id => params[:sub_id]
+  end
+  
+  def export
+    $patient = Record.find(params[:id])
+
+    Prawn::Document.generate "explicit.pdf" do
+      define_grid(:columns => 5, :rows => 14, :gutter => 10)
+      time = Time.new
+      #grid.show_all
+      grid(0,0).bounding_box do
+        image "#{Rails.root}/app/assets/images/logo_light.png", :width=>100, :position => -10, 
+                                                                             :vposition => -10
+      end 
+      
+      grid([0,1],[0,4]).bounding_box do
+        text "Patient Information for #{$patient.first} #{$patient.last}"
+        font_size 8
+        text "Generated on #{time.strftime("%B %d, %Y %I:%M %p")}"
+        move_down 2
+        text "Effective date 10/19/2009"
+      end
+      grid([1,0], [2,1]).bounding_box do
+        data = [['<strong>Health Plan:</strong>', 'Harvard Pilgrim'],
+                 ['<strong>Policy #:</strong>', '9234890'],
+                 ['<strong>PCP:</strong>', 'Dr. Jimi Hendrix']]
+        
+        table(data, :column_widths => [70, 110], 
+                    :cell_style => { :inline_format => true, :border_width => 0.5, :border_color => "EEEEEE" })
+      
+      end
+      
+      grid([1,2], [2,3]).bounding_box do
+        
+        data = [['<strong>DOB:</strong>', 'June 19, 1986 (Age: 25)'],
+                 ['<strong>Sex:</strong>', 'M'], 
+                 ['<strong>Race:</strong>', 'Asian']]
+                 
+        table(data, :column_widths => [50, 110], 
+                    :cell_style => { :inline_format => true, :border_width => 0.5, :border_color => "EEEEEE" })
+      
+      end
+      
+    end
+    redirect_to :back
   end
   
   private
