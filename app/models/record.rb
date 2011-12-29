@@ -19,6 +19,28 @@ class Record
   scope :by_patient_id, ->(id) { where(:patient_id => id) }
   scope :provider_performance_between, ->(effective_date) { where("provider_performances.start_date" => {"$lt" => effective_date}).and('$or' => [{'provider_performances.end_date' => nil}, 'provider_performances.end_date' => {'$gt' => effective_date}]) }
   
+  def self.get_race_groups
+    @groups = Hash.new()
+    Race.all.each do |record|
+      @groups[record.name] = record.codes
+    end
+    return @groups
+  end
+  
+  def self.get_races
+    @groups = self.get_race_groups
+    @counts = Hash.new()
+    Record.all.each do |record|
+      @code = record.ethnicity['code']
+      @groups.each_pair do |k,v|
+        if v.include?(@code)
+          @counts.has_key?(k) ? @counts[k] += 1 : @counts[k] = 1
+        end
+      end
+    end
+    return @counts
+  end
+  
   def self.get_ages
     @ages = Hash.new()
     @age_groups = Hash[
@@ -38,6 +60,7 @@ class Record
       
       @ages.has_key?(@age) ? @ages[@age] += 1 : @ages[@age] = 0
 
+      #is there a better way to do this in ruby
       case @age.to_i
       when 0..10
         @age_groups["0-10"] += 1

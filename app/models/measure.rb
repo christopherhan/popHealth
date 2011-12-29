@@ -1,5 +1,18 @@
 class Measure < MongoBase
-  
+  def self.get_keys
+    #puts mongo.methods
+    @col = mongo.collections[0]
+    #puts mongo['measures'].methods.size
+    @result = mongo['measures'].find_one({:category => "Asthma"})
+    @result2 = mongo['records'].find_one({:first => "Stella"})
+    #puts @result.class
+    #puts @result.pretty_inspect
+    puts @result.keys
+    print "----"
+    return @result2.keys
+
+    #puts mongo.collection_names
+  end
   def self.sub_measures(measure_id)
     mongo['measures'].find("id" => measure_id)
   end
