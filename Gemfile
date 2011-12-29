@@ -9,6 +9,7 @@ gem 'quality-measure-engine', '1.0.4'
 #gem 'quality-measure-engine', :git => 'http://github.com/pophealth/quality-measure-engine.git', :branch => 'develop'
 gem 'nokogiri'
 gem 'rubyzip'
+gem 'prawn'
 
 gem "will_paginate"
 gem 'json', :platforms => :jruby
