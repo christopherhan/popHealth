@@ -10,6 +10,10 @@ class PatientsController < ApplicationController
   
   add_breadcrumb_dynamic([:patient], only: %w{show}) {|data| patient = data[:patient]; {title: "#{patient.last}, #{patient.first}", url: "/patients/show/#{patient.id}"}}
   
+  def medications
+    @records = Record.get_medications
+  end
+  
   def list
     measure_id = params[:id] 
     sub_id = params[:sub_id]

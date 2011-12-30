@@ -1,3 +1,4 @@
+require 'rest_client'
 include ActionView::Helpers::DateHelper
 
 class Record
@@ -18,6 +19,26 @@ class Record
   scope :by_provider, ->(prov, effective_date) { (effective_date) ? where(provider_queries(prov.id, effective_date)) : where('provider_performances.provider_id'=>prov.id)  }
   scope :by_patient_id, ->(id) { where(:patient_id => id) }
   scope :provider_performance_between, ->(effective_date) { where("provider_performances.start_date" => {"$lt" => effective_date}).and('$or' => [{'provider_performances.end_date' => nil}, 'provider_performances.end_date' => {'$gt' => effective_date}]) }
+  
+  def self.get_medications
+    @rxnorm = Hash.new()
+    Record.all.each do |record|
+        if record.medications.any?
+          record.medications.each do |med|
+            @key = med['codes']['RxNorm']
+            @rxnorm.has_key?(@key) ? @rxnorm[@key] += 1 : @rxnorm[@key] = 1
+          end
+        end
+    end    
+    
+    @meds = Array.new
+    @rxnorm.each do|code, count|
+      @res = RestClient.get "http://rxnav.nlm.nih.gov/REST/rxcui/#{code[0]}", { :accept => :json }
+      @meds << @res
+    end
+    
+    return @meds
+  end
   
   def self.get_race_groups
     @groups = Hash.new()
