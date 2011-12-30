@@ -10,6 +10,7 @@ gem 'quality-measure-engine', '1.0.4'
 gem 'nokogiri'
 gem 'rubyzip'
 gem 'prawn'
+gem 'rest-client'
 
 gem "will_paginate"
 gem 'json', :platforms => :jruby
