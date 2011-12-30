@@ -67,8 +67,12 @@ class PatientsController < ApplicationController
         text "Effective date 10/19/2009"
       end
       grid([1,0], [2,1]).bounding_box do
+        font_size 10
+        text 'Provider Information', :style => :bold
+        font_size 8
+        move_down 2
         data = [['<strong>Health Plan:</strong>', 'Harvard Pilgrim'],
-                 ['<strong>Policy #:</strong>', '9234890'],
+                 ['<strong>Policy #:</strong>', 'XXFJIEWO5'],
                  ['<strong>PCP:</strong>', 'Dr. Jimi Hendrix']]
         
         table(data, :column_widths => [70, 110], 
@@ -76,17 +80,151 @@ class PatientsController < ApplicationController
       
       end
       
-      grid([1,2], [2,3]).bounding_box do
-        
-        data = [['<strong>DOB:</strong>', 'June 19, 1986 (Age: 25)'],
-                 ['<strong>Sex:</strong>', 'M'], 
-                 ['<strong>Race:</strong>', 'Asian']]
+      grid([1,2], [3,4]).bounding_box do
+        font_size 10
+        text 'Patient Information', :style => :bold
+        font_size 8
+        move_down 2
+        data = [ ['<strong>Address<strong>',"#{$patient.addresses[0]['street'][0]} \n" + 
+                                            "#{$patient.addresses[0]['city']}, " +
+                                            "#{$patient.addresses[0]['state']} " +
+                                            "#{$patient.addresses[0]['postalCode']}",
+                  '<strong>Language</strong>', 'English'
+                 ],
+                 ['<strong>DOB:</strong>', "#{Time.at($patient.birthdate).strftime('%d %b %Y')} (Age: 25)",
+                  '<strong>Ethnicity:</strong>', 'Non-Hispanic'
+                 ],
                  
-        table(data, :column_widths => [50, 110], 
+                 ['<strong>Sex:</strong>', $patient.gender, 
+                  '<strong>Race:</strong>', 'Asian'
+                 ],
+                 ['<strong>Blood Type:</strong>', 'O',
+                  '<strong>Tobacco User:</strong>', 'No'
+                  ]
+               ]
+                 
+        table(data, :column_widths => [50, 110, 50, 110], 
                     :cell_style => { :inline_format => true, :border_width => 0.5, :border_color => "EEEEEE" })
       
       end
+
+      grid(3,0).bounding_box do
+        font_size 10
+        text 'Allergies', :style => :bold
+        font_size 8
+        move_down 2
+        text "1. Penicilin \n 2. Benadryl", :inline_format => true
+        #table(data, :column_widths => [50,50], 
+        #            :cell_style => { :inline_format => true, :border_width => 0.5, :border_color => "EEEEEE" })   
+      end
+
+      grid([3,1], [6,1]).bounding_box do
+        font_size 10
+        text 'Vaccines', :style => :bold
+        font_size 8
+        move_down 5
+        
+        text "Tetanus", :style => :bold
+        text "1. April 3, 2003\n"+
+             "2. April 5, 2005"
+
+        move_down 5
+        text "TB", :style => :bold
+        text "1. Incomplete"
+
+        move_down 5
+        text "MMR", :style => :bold
+        text "1. Incomplete"
+
+        move_down 5
+        text "Hepatitis A", :style => :bold
+        text "1. Incomplete"
+
+        move_down 5
+        text "Hepatitis B", :style => :bold
+        text "1. Incomplete"
+
+        move_down 5
+        text "Diphtheria", :style => :bold
+        text "1. Incomplete"
+
+      end
+
+      grid(4,0).bounding_box do
+        font_size 10
+        text 'Medications', :style => :bold
+        font_size 8
+        move_down 5
+        
+        text "1. Avapro \n 2. Advair", :inline_format => true
+      end
       
+      grid([5,0],[5,1]).bounding_box do
+        font_size 10
+        text 'Procedures', :style => :bold
+        font_size 8
+        move_down 5
+        text '1. Nutrition Counseling'
+      end
+
+      grid([6,0], [6,1]).bounding_box do
+        font_size 10
+        text 'Diagnosis', :style => :bold
+        font_size 8
+        move_down 5
+        text 'None'
+      end
+    
+      grid([4,2], [6,4]).bounding_box do
+        font_size 10
+        text 'Physical Exam Findings', :style => :bold
+        font_size 8
+        move_down 5
+
+        data = [
+                ['', '<strong>Measurement</strong>', '<strong>Range</strong>'],
+                ['Height', "5'9\"", ''],
+                ['Weight', '159 LBS', '170-180'],
+                ['BMI', '28 kg/m2', '<25'],
+                ['Waist Circ.', '38 inches', '<40'],
+                ['BP', '133.93 mmHg','']
+               ]
+        table(data, :column_widths => [70,100, 50], 
+                    :cell_style => { :inline_format => true, :border_width => 0.5, :border_color => "EEEEEE" }) 
+      end
+
+      grid([7,2],[9,4]).bounding_box do
+        font_size 10
+        text 'Lab Results', :style => :bold
+        font_size 8
+        move_down 5
+
+        data = [
+                ['', '', '<strong>Measurement</strong>', '<strong>Range</strong>'],
+                ['Cholesterol', 'Total', '223 mg/dl', '100-199'],
+                ['', 'LDL', '171 mg/dl', '40-130'],
+                ['', 'HDL', '41 mg/dl', '40-70'],
+                ['Triglycerides', '', '66 mg/dl', '70-137'],
+                ['Glucose','', '99 mg/dl','72-137']
+               ]
+        table(data, :column_widths => [70, 50, 100, 50], 
+                    :cell_style => { :inline_format => true, :border_width => 0.5, :border_color => "EEEEEE" })
+      end
+        
+      grid([10,2], [11,4]).bounding_box do
+        font_size 10
+        text 'Encounters', :style => :bold
+        font_size 8
+        move_down 5
+
+        data = [
+                ['<strong>Time</strong>', '<strong>Description</strong>'],
+                ['10/19/09', 'Outpatient Encounter'],
+                ['08/10/08', 'Prenatal Visit 1']
+               ]
+        table(data, :column_widths => [70,120], 
+                    :cell_style => { :inline_format => true, :border_width => 0.5, :border_color => "EEEEEE" })
+      end
     end
     redirect_to :back
   end
