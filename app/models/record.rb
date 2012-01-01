@@ -23,12 +23,12 @@ class Record
   def self.get_medications
     @rxnorm = Hash.new()
     Record.all.each do |record|
-        if record.medications.any?
-          record.medications.each do |med|
-            @key = med['codes']['RxNorm']
-            @rxnorm.has_key?(@key) ? @rxnorm[@key] += 1 : @rxnorm[@key] = 1
-          end
+      if record.medications.any?
+        record.medications.each do |med|
+          @key = med['codes']['RxNorm']
+          @rxnorm.has_key?(@key) ? @rxnorm[@key] += 1 : @rxnorm[@key] = 1
         end
+      end
     end    
 
     # uncomment to query API
@@ -42,10 +42,28 @@ class Record
     @rxnorm.each do|code, count|
       @med = Medication.where(rxnormId: code[0])
       @med.each do |m|
-        @medications[m.rxnormId] = {'count'=> @rxnorm[Array[code[0]]], 'name' => m.name } #why are the keys arrays??
+        @medications[m.rxnormId] = {'count'=> @rxnorm[Array[code[0]]], 'name' => m.name } #TODO remove array by checking for nil above
       end
     end
     return @medications
+  end
+  
+  def self.get_conditions
+    @counts = Hash.new
+    @conditions = Hash.new
+    Record.all.each do |record|
+      if record.conditions.any?
+        record.conditions.each do |cond|
+          unless cond['codes']['SNOMED-CT'].nil?
+            @key = cond['codes']['SNOMED-CT'][0]
+            @counts.has_key?(@key) ? @counts[@key] += 1 : @counts[@key] = 1
+            @conditions[@key] = {'count' => @counts[@key], 'name' => cond['description'] }
+          end
+        end
+      end
+    end
+
+    return @conditions
   end
   
   def self.get_race_groups

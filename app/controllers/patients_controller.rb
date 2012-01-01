@@ -28,6 +28,10 @@ class PatientsController < ApplicationController
     @meds = Record.get_medications      
   end
   
+  def conditions
+    @conditions = Record.get_conditions
+  end
+  
   def list
     measure_id = params[:id] 
     sub_id = params[:sub_id]
