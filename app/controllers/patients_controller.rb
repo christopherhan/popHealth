@@ -2,6 +2,7 @@ require 'prawn'
 
 class PatientsController < ApplicationController
   include MeasuresHelper
+  include ActionView::Helpers::DateHelper
 
   before_filter :authenticate_user!
   before_filter :validate_authorization!
@@ -34,6 +35,7 @@ class PatientsController < ApplicationController
 
   def condition
     @patients = Record.get_patients_with_condition params[:q]
+    @condition = params[:q]
   end
   
   def list
@@ -101,13 +103,66 @@ class PatientsController < ApplicationController
     end
     redirect_to :back
   end  
+
+  def export_patients_with_condition
+    $patients = Record.get_patients_with_condition params[:q]
+    $condition = params[:q]
+    Prawn::Document.generate "patient_conditions.pdf" do
+      @rows = Array.new
+      @rows << ['<strong>Row</strong>', 
+                '<strong>Patient ID</strong>', 
+                '<strong>First</strong>', 
+                '<strong>Last</strong>',
+                '<strong>Gender</strong>', 
+                '<strong>DOB</strong>' 
+                ]
+
+      define_grid(:columns => 5, :rows => 14, :gutter => 10)
+      time = Time.new
+      
+      grid(0,0).bounding_box do
+        image "#{Rails.root}/app/assets/images/logo_light.png", :width=>100, :position => -10, 
+                                                                              :vposition => -10
+      end
+      
+      grid([0,1],[0,4]).bounding_box do
+        
+        text "Patients with #{$condition}"
+        font_size 8
+        text "Generated on #{time.strftime("%B %d, %Y %I:%M %p")}"
+        move_down 2
+      end
+
+       grid([1,0],[13,4]).bounding_box do
+        font_size 10
+        text "Total Patients: #{$patients.length}", :style => :bold
+        font_size 8
+        move_down 10
+        
+        @i = 1
+        $patients.each do |patient|
+          @row = [@i, patient.patient_id, patient.first, patient.last, patient.gender, "#{Time.at(patient.birthdate).strftime("%B %d, %Y")}"]
+          @rows << @row
+          @i += 1
+        end
+      
+        table(@rows, :column_widths => [30, 70, 90, 100, 50, 100], 
+                     :cell_style => { :inline_format => true, :border_width => 0.5, :border_color => "EEEEEE" })
+      end
+
+    end
+    redirect_to :back
+  end
   
   def export_conditions
-   $conditions = Record.get_conditions
+    $conditions = Record.get_conditions
     Prawn::Document.generate "conditions.pdf" do
 
       @rows = Array.new      
-      @rows << ['<strong>Row</strong>', '<strong>SNOWMED-CT</strong>', '<strong>Count</strong>', '<strong>Name</strong>']
+      @rows << ['<strong>Row</strong>', 
+                '<strong>SNOWMED-CT</strong>', 
+                '<strong>Count</strong>', 
+                '<strong>Name</strong>']
       
       define_grid(:columns => 5, :rows => 14, :gutter => 10)
       time = Time.new
