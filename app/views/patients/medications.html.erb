@@ -1,1 +1,16 @@
-<%= @hello %>
+<%= link_to "Export", :controller => "patients", :action => "export_meds"%>
+<table style="width: 80%">
+	<tr>
+		<th style="padding: 15px;">RxNormID</th>
+		<th style="padding: 15px;">Count</th>
+		<th style="padding: 15px;">Name</th>
+	</tr>
+
+<% @meds.each do |key, value| %>
+	<tr>
+		<td><%= key %></td>
+		<td><%= value['count'] %></td>
+		<td><%= value['name'] %></td>
+	</tr>
+<% end %>
+</table>

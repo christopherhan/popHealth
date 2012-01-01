@@ -30,14 +30,22 @@ class Record
           end
         end
     end    
+
+    # uncomment to query API
+    #@meds = Array.new
+    #@rxnorm.each do|code, count|
+    #  @res = RestClient.get "http://rxnav.nlm.nih.gov/REST/rxcui/#{code[0]}", { :accept => :json }
+    #  @meds << @res
+    #end
     
-    @meds = Array.new
+    @medications = Hash.new
     @rxnorm.each do|code, count|
-      @res = RestClient.get "http://rxnav.nlm.nih.gov/REST/rxcui/#{code[0]}", { :accept => :json }
-      @meds << @res
+      @med = Medication.where(rxnormId: code[0])
+      @med.each do |m|
+        @medications[m.rxnormId] = {'count'=> @rxnorm[Array[code[0]]], 'name' => m.name } #why are the keys arrays??
+      end
     end
-    
-    return @meds
+    return @medications
   end
   
   def self.get_race_groups

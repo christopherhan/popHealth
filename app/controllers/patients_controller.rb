@@ -10,8 +10,22 @@ class PatientsController < ApplicationController
   
   add_breadcrumb_dynamic([:patient], only: %w{show}) {|data| patient = data[:patient]; {title: "#{patient.last}, #{patient.first}", url: "/patients/show/#{patient.id}"}}
   
+  def show
+  end
+  
+  def search
+    if params[:fn] or params[:ln]
+      @results = Record.where(:first => /^(#{params[:fn]})/i).or(:last => /^(#{params[:ln]})/i)
+    end 
+  end
+  
+  def toggle_excluded
+    ManualExclusion.toggle!(@patient, params[:measure_id], params[:sub_id], params[:rationale], current_user)
+    redirect_to :controller => :measures, :action => :patients, :id => params[:measure_id], :sub_id => params[:sub_id]
+  end
+  
   def medications
-    @records = Record.get_medications
+    @meds = Record.get_medications      
   end
   
   def list
@@ -36,25 +50,49 @@ class PatientsController < ApplicationController
       format.html {}
     end
   end
+  
+  def export_meds
+    $meds = Record.get_medications
+    Prawn::Document.generate "medications.pdf" do
+      @rows = Array.new
+      @rows << ['<strong>RxNormID</strong>', '<strong>Count</strong>', '<strong>Name</strong>']
+      
+      define_grid(:columns => 5, :rows => 14, :gutter => 10)
+      time = Time.new
+      
+      grid(0,0).bounding_box do
+        image "#{Rails.root}/app/assets/images/logo_light.png", :width=>100, :position => -10, 
+                                                                              :vposition => -10
+      end
+      
+      grid([0,1],[0,4]).bounding_box do
+        text "Medications List"
+        font_size 8
+        text "Generated on #{time.strftime("%B %d, %Y %I:%M %p")}"
+        move_down 2
+      end
+      
+      $meds.each do |key, value|
+        #puts key
+        @row = [key, value['count'], value['name']]
+        @rows << @row
+      end
+      
+      table(@rows, :column_widths => [50, 50, 440], 
+                    :cell_style => { :inline_format => true, :border_width => 0.5, :border_color => "EEEEEE" })
+     
+    end
+    redirect_to :back
+  end  
+  
 
-  def show
-  end
-  
-  def search
-    if params[:fn] or params[:ln]
-      @results = Record.where(:first => /^(#{params[:fn]})/i).or(:last => /^(#{params[:ln]})/i)
-    end 
-  end
-  
-  def toggle_excluded
-    ManualExclusion.toggle!(@patient, params[:measure_id], params[:sub_id], params[:rationale], current_user)
-    redirect_to :controller => :measures, :action => :patients, :id => params[:measure_id], :sub_id => params[:sub_id]
-  end
+
+
   
   def export
     $patient = Record.find(params[:id])
 
-    Prawn::Document.generate "explicit.pdf" do
+    Prawn::Document.generate "#{$patient.last}_#{$patient.first}_#{$patient.patient_id}.pdf" do
       define_grid(:columns => 5, :rows => 14, :gutter => 10)
       time = Time.new
       #grid.show_all
