@@ -65,6 +65,18 @@ class Record
 
     return @conditions
   end
+
+  def self.is_numeric?(s)
+    !!Float(s) rescue false
+  end
+  
+  def self.get_patients_with_condition(param)
+    if self.is_numeric?(param)
+      return Record.all(conditions:{"conditions.codes.SNOMED-CT" => param})
+    end
+
+    return Record.all(conditions:{"conditions.description" => param})
+  end
   
   def self.get_race_groups
     @groups = Hash.new()

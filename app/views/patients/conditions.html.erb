@@ -10,7 +10,7 @@
 
 <% @conditions.each do |key, value| %>
 	<tr>
-		<td><%= key %></td>
+		<td><%= link_to key, :controller => "patients", :action=>"condition", :q=>key %></td>
 		<td><%= value['count'] %></td>
 		<td><%= value['name'] %></td>
 	</tr>

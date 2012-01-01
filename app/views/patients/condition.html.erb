@@ -1,0 +1,19 @@
+<p><%= @patients.length %> Patients(s)</p>
+<table>
+	<tr>
+		<td>Patient ID</td>
+		<td>First Name</td>
+		<td>Last Name</td>
+		<td>Gender</td>
+		<td>DOB</td>
+	</tr>
+<% @patients.each do |patient| %>
+	<tr>
+		<td><%= link_to patient.patient_id, :controller => "patients", :action=>"show", :id=>patient.id %></td>
+		<td><%= patient.first %></td>
+		<td><%= patient.last %></td>
+		<td><%= patient.gender %></td>
+		<td><%= Time.at(patient.birthdate).strftime("%d.%b.%Y") %></td>
+	</tr>
+<% end %>
+</table>

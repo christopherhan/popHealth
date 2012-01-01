@@ -31,6 +31,10 @@ class PatientsController < ApplicationController
   def conditions
     @conditions = Record.get_conditions
   end
+
+  def condition
+    @patients = Record.get_patients_with_condition params[:q]
+  end
   
   def list
     measure_id = params[:id] 
