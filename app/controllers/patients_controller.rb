@@ -60,7 +60,7 @@ class PatientsController < ApplicationController
     Prawn::Document.generate "medications.pdf" do
 
       @rows = Array.new      
-      @rows << ['<strong>RxNormID</strong>', '<strong>Count</strong>', '<strong>Name</strong>']
+      @rows << ['<strong>Row</strong>','<strong>RxNormID</strong>', '<strong>Count</strong>', '<strong>Name</strong>']
       
       define_grid(:columns => 5, :rows => 14, :gutter => 10)
       time = Time.new
@@ -83,23 +83,65 @@ class PatientsController < ApplicationController
         text "Total Medications: #{$meds.length}", :style => :bold
         font_size 8
         move_down 10
+        
+        @i = 1
         $meds.each do |key, value|
-          #puts key
-          @row = [key, value['count'], value['name']]
+          @row = [@i, key, value['count'], value['name']]
           @rows << @row
+          @i += 1
         end
       
-        table(@rows, :column_widths => [50, 50, 440], 
+        table(@rows, :column_widths => [30, 50, 50, 400], 
                      :cell_style => { :inline_format => true, :border_width => 0.5, :border_color => "EEEEEE" })
       end
     end
     redirect_to :back
   end  
   
+  def export_conditions
+   $conditions = Record.get_conditions
+    Prawn::Document.generate "conditions.pdf" do
 
+      @rows = Array.new      
+      @rows << ['<strong>Row</strong>', '<strong>SNOWMED-CT</strong>', '<strong>Count</strong>', '<strong>Name</strong>']
+      
+      define_grid(:columns => 5, :rows => 14, :gutter => 10)
+      time = Time.new
+      
+      grid(0,0).bounding_box do
+        image "#{Rails.root}/app/assets/images/logo_light.png", :width=>100, :position => -10, 
+                                                                              :vposition => -10
+      end
+      
+      grid([0,1],[0,4]).bounding_box do
+        
+        text "Conditions List"
+        font_size 8
+        text "Generated on #{time.strftime("%B %d, %Y %I:%M %p")}"
+        move_down 2
+      end
+      
+      grid([1,0],[13,4]).bounding_box do
+        font_size 10
+        text "Total Conditions: #{$conditions.length}", :style => :bold
+        font_size 8
+        move_down 10
 
+        @i = 1
+        $conditions.each do |key, value|
+          #puts key
+          @row = [@i, key, value['count'], value['name']]
+          @rows << @row
+          @i += 1
+        end
+      
+        table(@rows, :column_widths => [30, 60, 50, 390], 
+                     :cell_style => { :inline_format => true, :border_width => 0.5, :border_color => "EEEEEE" })
+      end
+    end
 
-  
+    redirect_to :back 
+  end
   def export
     $patient = Record.find(params[:id])
 
