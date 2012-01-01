@@ -54,7 +54,8 @@ class PatientsController < ApplicationController
   def export_meds
     $meds = Record.get_medications
     Prawn::Document.generate "medications.pdf" do
-      @rows = Array.new
+
+      @rows = Array.new      
       @rows << ['<strong>RxNormID</strong>', '<strong>Count</strong>', '<strong>Name</strong>']
       
       define_grid(:columns => 5, :rows => 14, :gutter => 10)
@@ -66,21 +67,27 @@ class PatientsController < ApplicationController
       end
       
       grid([0,1],[0,4]).bounding_box do
+        
         text "Medications List"
         font_size 8
         text "Generated on #{time.strftime("%B %d, %Y %I:%M %p")}"
         move_down 2
       end
       
-      $meds.each do |key, value|
-        #puts key
-        @row = [key, value['count'], value['name']]
-        @rows << @row
-      end
+      grid([1,0],[13,4]).bounding_box do
+        font_size 10
+        text "Total Medications: #{$meds.length}", :style => :bold
+        font_size 8
+        move_down 10
+        $meds.each do |key, value|
+          #puts key
+          @row = [key, value['count'], value['name']]
+          @rows << @row
+        end
       
-      table(@rows, :column_widths => [50, 50, 440], 
-                    :cell_style => { :inline_format => true, :border_width => 0.5, :border_color => "EEEEEE" })
-     
+        table(@rows, :column_widths => [50, 50, 440], 
+                     :cell_style => { :inline_format => true, :border_width => 0.5, :border_color => "EEEEEE" })
+      end
     end
     redirect_to :back
   end  
