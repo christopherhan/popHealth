@@ -1,3 +1,6 @@
+<%= @pct %>% of patients have conditions<br />
+<%= @with.length %> patients have a condition <br />
+<%= @without.length %> patients have no conditions <br /><br />
 <%= link_to "Export", :controller => "patients", :action => "export_conditions" %>
 <br />
 <%= @conditions.length %> Total Conditions 

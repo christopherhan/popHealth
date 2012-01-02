@@ -1,4 +1,5 @@
 require 'rest_client'
+require 'set'
 include ActionView::Helpers::DateHelper
 
 class Record
@@ -51,8 +52,11 @@ class Record
   def self.get_conditions
     @counts = Hash.new
     @conditions = Hash.new
+    @with_condition = Set.new
+    @without_condition = Set.new
     Record.all.each do |record|
       if record.conditions.any?
+        @with_condition.add(record)
         record.conditions.each do |cond|
           unless cond['codes']['SNOMED-CT'].nil?
             @key = cond['codes']['SNOMED-CT'][0]
@@ -60,10 +64,12 @@ class Record
             @conditions[@key] = {'count' => @counts[@key], 'name' => cond['description'] }
           end
         end
+      else
+        @without_condition.add(record)
       end
     end
 
-    return @conditions
+    return @conditions, @with_condition, @without_condition
   end
 
   def self.is_numeric?(s)

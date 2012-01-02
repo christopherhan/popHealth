@@ -30,7 +30,8 @@ class PatientsController < ApplicationController
   end
   
   def conditions
-    @conditions = Record.get_conditions
+    @conditions, @with, @without = Record.get_conditions
+    @pct = (Float(@with.length) / (@with.length + @without.length))*100
   end
 
   def condition
@@ -155,36 +156,44 @@ class PatientsController < ApplicationController
   end
   
   def export_conditions
-    $conditions = Record.get_conditions
+    $conditions, $with, $without = Record.get_conditions
+    $pct = (Float($with.length) / ($with.length + $without.length))*100
+
     Prawn::Document.generate "conditions.pdf" do
 
-      @rows = Array.new      
-      @rows << ['<strong>Row</strong>', 
-                '<strong>SNOWMED-CT</strong>', 
-                '<strong>Count</strong>', 
-                '<strong>Name</strong>']
-      
+            
       define_grid(:columns => 5, :rows => 14, :gutter => 10)
       time = Time.new
-      
       grid(0,0).bounding_box do
         image "#{Rails.root}/app/assets/images/logo_light.png", :width=>100, :position => -10, 
                                                                               :vposition => -10
       end
       
       grid([0,1],[0,4]).bounding_box do
-        
         text "Conditions List"
         font_size 8
         text "Generated on #{time.strftime("%B %d, %Y %I:%M %p")}"
         move_down 2
       end
       
-      grid([1,0],[13,4]).bounding_box do
-        font_size 10
-        text "Total Conditions: #{$conditions.length}", :style => :bold
-        font_size 8
-        move_down 10
+      grid([1,0],[3,1]).bounding_box do
+        @rows = [["Patients with a condition", "#{$with.length}"],
+                 ["Patients with NO conditions", "#{$without.length}"],
+                 ["Total patients reported", "#{$with.length + $without.length}"],
+                 ["% of patients with a condition", "#{$pct}"],
+                 ["Total conditions reported", "#{$conditions.length}"]]
+       
+        table(@rows, :column_widths => [120, 50], 
+                     :cell_style => { :inline_format => true, :border_width => 0.5, :border_color => "EEEEEE" })
+
+      end
+
+      grid([3,0],[13,4]).bounding_box do
+        @rows = Array.new      
+        @rows << ['<strong>Row</strong>', 
+                '<strong>SNOWMED-CT</strong>', 
+                '<strong>Count</strong>', 
+                '<strong>Name</strong>']
 
         @i = 1
         $conditions.each do |key, value|
