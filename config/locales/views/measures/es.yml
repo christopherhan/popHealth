@@ -1,22 +1,5 @@
-es:
-    register:
-        update_account: "Actualice su información de cuenta"
-        first_name: "Su Nombre"
-        last_name: "Su apellido"
-        username: "Nombre de usuario"
-        password: "Contraseña"
-        your_email_address: "Su dirección de email"
-        your_organization: "Su organización"
-        your_organization_url: "URL de su organización"
-        registry_name: "Nombre de registro"
-        registry_id: "Identificador de registro"
-        provider_id: "ID de Proveedor Nacional" 
-        tax_id: "Identificador Fiscal"
-        cancel: "Cancelar"
-        create: "Crear"
-        update_account: "Actualizar Cuenta"
-    
-    home:
+es:    
+    index:
         reporting: "Reportar"
         core_measure:
             core_measures: "Medidas Centrales"
@@ -48,33 +31,6 @@ es:
             cancer: "Cáncer"
             diabetes: "Diabetes"
             heart_conditions: "Enfermedades del corazón"
-
-    help: "Ayuda"
-    account: "Cuenta"
-    logs: "los registros"
-    logout: "Salir"
-    login: "Ingresar"
-    numerator: "Numerador"
-    denomiator: "Denominador"
-    outliers: "Valores atípicos"
-    exclusions: "Exclusiones"
-    age: "Edad"
-    reporting_patients: "Pacientes Reportados"
-    parameters: "Parámetros"
-    queued: "Lista de espera"
-    races: "Razas"
-    ethnicities: "Etnias"
-    gender: "Género"
-    dashboard: "Panel de Control"
-    provider: "Proveedor"
-    username: "Nombre de usuario"
-    timestamp: "Sello de tiempo"
-    event: "Evento"
-    previous: "Anterior"
-    next: "Siguiente"
-    start: "Inicio"
-    end: "Fin"
-
 
 
 
