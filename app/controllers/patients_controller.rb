@@ -38,6 +38,10 @@ class PatientsController < ApplicationController
     @patients = Record.get_patients_with_condition params[:q]
     @condition = params[:q]
   end
+
+  def encounters
+    Record.no_encounters_within 30
+  end
   
   def list
     measure_id = params[:id] 

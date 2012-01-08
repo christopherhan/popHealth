@@ -48,7 +48,7 @@ class Record
     end
     return @medications
   end
-  
+ 
   def self.get_conditions
     @counts = Hash.new
     @conditions = Hash.new
@@ -72,6 +72,11 @@ class Record
     return @conditions, @with_condition, @without_condition
   end
 
+  def self.no_encounters_within(days)
+    @patients = Record.where({ 'encounters.time' => { "$lte" => Time.now.to_i - days.days.to_i  }})
+    puts @patients.length
+    return @patients
+  end
   def self.is_numeric?(s)
     !!Float(s) rescue false
   end

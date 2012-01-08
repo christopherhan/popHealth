@@ -33,6 +33,7 @@ PopHealth::Application.routes.draw do
   match 'patients', :to => 'patients#index', :via => :get
   match 'patients/show/:id', :to => 'patients#show'
   match 'patients/search', :to=> 'patients#search', :via=>:get
+  match 'patients/encounters', :to => 'patients#encounters'
   match 'patients/export/:id', :to=>'patients#export'
   match 'patients/medications', :to => 'patients#medications', :via => :get
   match 'patients/medications/export', :to => 'patients#export_meds'
