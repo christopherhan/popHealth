@@ -19,3 +19,8 @@ Thumbs.db
 .bundle/config
 vendor
 dump.rdb
+
+app/assets/javascripts/hc/examples/
+app/assets/javascripts/hc/exporting-server/
+app/assets/javascripts/hc/index.htm
+app/assets/javascripts/hc/js/adapters/
