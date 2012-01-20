@@ -1,13 +1,18 @@
-<div id="header">
-  <div id="breadcrumbBox">
-    <ul id="breadcrumbItems">
-      <% if @breadcrumbs %>
-        <% @breadcrumbs[0..-2].each do |crumb| %>
-          <li><%= link_to(crumb.title, crumb.url) %> <span class="sep">&raquo;</span></li>
-        <% end %>
-        <li><%= @breadcrumbs.last.title %></li>
-      <% end %>
-    </ul>
-    <%= render :partial => 'shared/top_nav' %>
-  </div><!-- end #breadcrumbBox -->
-</div><!-- end #header -->
+<div class="topbar">
+  <div class="topbar fill">
+  <div class="logo"><img src="/assets/logo2.png" /> </div> 
+  <div class="container">
+        <ul class="nav" style="position: relative; left: 220px;">
+            <li><a href="#">QCM Reports</a></li>
+            <li><a href="/dashboard">Statistics</a></li>
+            <li><a href="/patients">Patients</a></li>
+            <li><a href="/patients/conditions">Conditions</a></li>
+            <li><a href="/patients/medications">Medications</a></li>
+            <% if current_user.staff_role? || current_user.admin? %><li><%= link_to t('top_nav.providers'), providers_path %></li> <% end %>
+
+        </ul>
+        <%= render :partial => 'shared/top_nav' %>
+        </div>
+  </div>
+</div>
+   

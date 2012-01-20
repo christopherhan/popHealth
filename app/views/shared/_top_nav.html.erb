@@ -1,4 +1,4 @@
-<div id="logOut">
+<!--<div id="logOut">
   <%= t('top_nav.welcome') %>, <%= current_user.first_name.to_s %>
   <span class="sep">|</span> <a href="http://projectpophealth.org/faq.html"><%= t('top_nav.help') %></a>
   <% if APP_CONFIG['edit_account_enabled']%><span class="sep">|</span> <%= link_to t('top_nav.account'), edit_user_registration_path(current_user) %> <% end %>
@@ -6,4 +6,19 @@
   <% if current_user.staff_role? || current_user.admin? %> <span class="sep">|</span> <%= link_to t('top_nav.providers'), providers_path %> <% end %>
   <% if current_user.admin? %><span class="sep">|</span> <%= link_to t('top_nav.logs'), logs_index_path %> <% end %>
   <% if APP_CONFIG['logout_enabled']%><span class="sep">|</span> <%= link_to t('top_nav.logout'), destroy_user_session_path, 'class' => 'log'%> <% end %>
-</div>
+</div>-->
+<ul class="nav secondary-nav">
+          <li class="dropdown" data-dropdown="dropdown">
+            <a href="#" class="dropdown-toggle"><%= current_user.first_name.to_s %> <%= current_user.last_name.to_s %></a>
+          
+            <ul class="dropdown-menu">
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Help</a></li>
+                <% if APP_CONFIG['logout_enabled'] %><li><%= link_to t('top_nav.logout'), destroy_user_session_path, 'class' => 'log' %></li><% end %>
+                <li class="divider"></li>
+                <% if current_user.admin? %><li><%= link_to t('top_nav.admin'), admin_users_path %></li> <% end %>
+                <% if current_user.admin? %><li><%= link_to t('top_nav.logs'), logs_index_path %></li> <% end %>
+            </ul> 
+        </li>
+       </ul>
+
