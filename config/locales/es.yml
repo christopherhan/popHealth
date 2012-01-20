@@ -25,7 +25,6 @@ es:
             weigh_assessment: "Valoración de Peso y Orientación para Niños y Adolescentes"
             child_immun_status: "Estado de Inmunización Infantil"
             preventiative_flu: "Cuidado preventivo y Análisis: Inmunización contra Influenza para Pacientes >=50 años"
-        
         alternate_measures:
             core_alternate_measures: "Medidas Centrales Alternas"
             alt_measure: "Medidas Adicionales"
@@ -55,6 +54,8 @@ es:
         outliers: "Valores atípicos"
         exclusions: "Exclusiones"
         age: "Edad"
+        help: "Ayuda"
+        patients: "Pacientes"
         reporting_patients: "Pacientes Reportados"
         reporting_period: "Período del Informe"
         num_patients: "# de Pacientes"
@@ -77,6 +78,7 @@ es:
         end: "Fin"
         practice: "Práctica"
         recalulate: "Recalcular"
+        statistics: "estadística"
 
 
 

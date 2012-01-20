@@ -1,6 +1,9 @@
 es:    
     index:
         reporting: "Reportar"
+        export: "exportar"
+        patients: "pacientes"
+        parameters: "parámetros"
         core_measure:
             core_measures: "Medidas Centrales"
             hypertension: "Hipertensión: Medición de Presión Sanguínea"
@@ -9,7 +12,7 @@ es:
             weigh_assessment: "Valoración de Peso y Orientación para Niños y Adolescentes"
             child_immun_status: "Estado de Inmunización Infantil"
             preventiative_flu: "Cuidado preventivo y Análisis: Inmunización contra Influenza para Pacientes >=50 años"
-        core_altenate: "Medidas Centrales Alternas"
+        core_alternate: "Medidas Centrales Alternas"
         alternate_measures:
             alt_measure: "Medidas Adicionales"
             asthma:

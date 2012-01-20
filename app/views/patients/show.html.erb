@@ -54,7 +54,7 @@
     <div style="width: 85%; padding-left: 20px;">
       <div class="section">
         <div class="section-header">
-          <p>Michelle Brewer</p>
+          <p><%=@patient.last %>, <%= @patient.first %> </p>
            <button class="btn info float-right">
             <%= link_to "Export Patient", :controller => "patients", :action => "export", :id => @patient.id %>
            </button>

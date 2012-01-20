@@ -84,8 +84,8 @@
 <% end -%>
 
 <div id="pageContent">
-<h1>Users</h1>
-<table id="patientTable">
+<table class="sortable zebra-striped">
+<thead>
   <tr>
     <th>First Name</th>
     <th>Last Name</th>
@@ -96,6 +96,7 @@
     <th>Approved</th>
     <th>Status</th>
   </tr>
+</thead>
   <% @users.each do |user| -%>
   <tr>
     <td><%= user.first_name %></td>

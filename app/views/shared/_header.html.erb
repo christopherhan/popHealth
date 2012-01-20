@@ -3,11 +3,11 @@
   <div class="logo"><img src="/assets/logo2.png" /> </div> 
   <div class="container">
         <ul class="nav" style="position: relative; left: 220px;">
-            <li><a href="/">QCM Reports</a></li>
-            <li><a href="/dashboard">Statistics</a></li>
-            <li><a href="/patients">Patients</a></li>
-            <li><a href="/patients/conditions">Conditions</a></li>
-            <li><a href="/patients/medications">Medications</a></li>
+            <li><a href="/"><%= t('top_nav.qcm_reporting') %></a></li>
+            <li><a href="/dashboard"><%=  t('top_nav.statistics') %></a></li>
+            <li><a href="/patients"><%= t('top_nav.patients') %></a></li>
+            <li><a href="/patients/conditions"><%= t('top_nav.conditions') %></a></li>
+            <li><a href="/patients/medications"><%= t('top_nav.medications') %></a></li>
             <% if current_user.staff_role? || current_user.admin? %><li><%= link_to t('top_nav.providers'), providers_path %></li> <% end %>
 
         </ul>

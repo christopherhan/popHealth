@@ -20,7 +20,7 @@
 <% end -%>
 
 <div id="pageContent">
-    <h1>Logs</h1>
+  <div class="content-container">
     <table>
       <tr>
         <td>Start</td>
@@ -32,7 +32,8 @@
       </tr>
     </table>
 
-    <table id="patientTable">
+    <table id="sortable" class="zebra-striped condensed-table">
+      <thead>
       <tr>
         <th><%= link_to 'Timestamp', time_range_params_plus(:sort => 'created_at', :order => 'desc') %></th>
         <th><%= link_to 'Username', time_range_params_plus(:sort => 'username', :order => 'desc') %></th>
@@ -40,6 +41,7 @@
         <th><%= link_to 'File SHA1 Hash', time_range_params_plus(:sort => 'checksum', :order => 'desc') %></th>
         <th><%= link_to 'Patient Id', time_range_params_plus(:sort => 'patient_id', :order => 'desc') %></th>
       </tr>
+      </thead>
       <% @logs.each do |log| -%>
       <tr>
         <td><%= log.created_at %></td>
@@ -52,4 +54,5 @@
     </table>
 
     <%= will_paginate @logs %>
+    </div>
 </div> <!-- pageContent -->

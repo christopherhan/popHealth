@@ -2,7 +2,7 @@
 <div class="section">
 <div class="section-header">
     <p>All Patients &bull; <%= pluralize(@records.length, "record", "records") %> found</p>
-    <button class="btn info float-right">Export Patients</button>
+    <button class="btn info float-right" onclick="window.location='/patients/export'">Export Patients</button>
 </div>
 <table id="sortable" class="zebra-striped">
     <thead>

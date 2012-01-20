@@ -13,8 +13,8 @@
         <% end %>
         <br/>
                 <div class="links">
-            <%= link_to 'patients', patients_url(measure['id'], sub_id), :class => 'tableEdit'%> | 
-            <%= link_to 'parameters', measure_url(measure['id'], sub_id), :class => 'tableEdit'%>
+            <%= link_to t('index.patients'), patients_url(measure['id'], sub_id), :class => 'tableEdit'%> | 
+            <%= link_to t('index.parameters'), measure_url(measure['id'], sub_id), :class => 'tableEdit'%>
           </div>
       </div>
     </td>

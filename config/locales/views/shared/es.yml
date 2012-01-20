@@ -8,4 +8,8 @@ es:
         login: "Ingresar"
         admin: "Administración"
         providers: "Proveedores"
-
+        statistics: "Estadística"
+        patients: "Pacientes"
+        conditions: "Enfermedades"
+        medications: "Medicamentos"
+        qcm_reporting: "QCM Reportar"

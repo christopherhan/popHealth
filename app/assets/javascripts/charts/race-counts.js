@@ -38,8 +38,8 @@ $(document).ready(function() {
 		layout: 'vertical',
 		align: 'right',
 		verticalAlign: 'top',
-		x: -100,
-		y: 100,
+		x: -20,
+		y: 50,
 		floating: true,
 		borderWidth: 1,
 		backgroundColor: '#FFFFFF',
@@ -50,7 +50,7 @@ $(document).ready(function() {
 	},
         series: [{
 		name: 'Patients',
-		data: [107, 31, 191, 203, 100,100]
+		data: [90, 99, 101, 98, 115,102]
 	}]
 });
 

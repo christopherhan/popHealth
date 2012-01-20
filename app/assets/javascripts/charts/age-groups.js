@@ -50,7 +50,7 @@ $(document).ready(function() {
 	},
         series: [{
 		name: 'Patients',
-		data: [107, 31, 635, 203, 100,100,102,340, 199]
+		data: [10, 54, 68, 98, 103, 115, 87, 54, 33]
 	}]
 });
 
