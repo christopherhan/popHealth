@@ -159,12 +159,15 @@
             <dd class="practiceName"><h1><%=APP_CONFIG['practice_name']%></h1></dd>
           </dl>
         <% end %>
-        
+       
         <dl>
+
           <% if (@selected_provider || !can?(:manage, :providers)) %>
-            <input type="button" class="exportReport btn info" value="Export Report" id="btnExportReportSingle">
+           
+            <input type="button" class="btn info" value="Export XML" id="btnExportReportSingle">
           <% else %>
-            <input type="button" class="exportReport btn info" value="Export Report" id="btnExportReport">
+            <input type="button" class="float-right btn info" value="Export XML" id="btnExportReport">
+            <button class="btn info float-right" onclick="window.location='/reports/selected_measures'" style="margin-right: 5px;">Export PDF</button>
             <ul id="generate-menu" class="ui-menu ui-widget ui-widget-content ui-corner-all dialog-menu" role="listbox" aria-activedescendant="ui-active-menuitem">
               <li class="ui-menu-item" role="menuitem" data-type="provider">
                 <a class="ui-corner-all" href="#" tabindex="-1">Provider Report</a>
@@ -179,7 +182,7 @@
           <dd>
             <span id="measurementPeriodStartDate"><%= Time.at(@period_start).strftime("%m/%d/%Y") %></span> - 
             <input type="text" class="measurementPeriodEndDate" id="measurementPeriodEndDate" size="8" value="<%= Time.at(@effective_date).strftime("%m/%d/%Y") %>">
-            <input type="button" class="recalculate btn info" id="btnMeasurementPeriodChange" value="Recalculate" <% if (@selected_provider) %> data-npi="<%=@selected_provider.npi%>" <% end %> >
+            <input type="button" class="btn info" id="btnMeasurementPeriodChange" value="Recalculate" <% if (@selected_provider) %> data-npi="<%=@selected_provider.npi%>" <% end %> >
           </dd>
         </dl>
         <dl>
