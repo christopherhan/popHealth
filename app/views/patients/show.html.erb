@@ -50,126 +50,74 @@
         <ul>
       </div>
     </div>
-    <div id="dashboardPeriod">
-      <div id="patientName" class="main">
-        <p id="patientLastName"><%= @patient.last %>,</p>
-        <p id="patientFirstName"><%= @patient.first %></p>
-        <p>effective date:</p>
-        <div id="effectiveDate"></div>
-          <table id="patientBasicInfo">
-          <tbody>
-            <tr>
-              <th>DOB</th>
-              <td><%= Time.at(@patient.birthdate).strftime("%d.%b.%Y") %></td>
-            </tr>
-            <tr>
-              <th>sex</th>
-              <td><%= @patient.gender %></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div id="export">
-	    <%= link_to "Generate PDF Report", :controller => "patients", :action => "export", :id => @patient.id %>
-	  </div>
-      <div class="lowerborder">
-        <table class="patientDemo main">
-          <tbody>
-            <tr>
-              <th>race</th>
-              <td>white</td>
-            </tr>
-            <tr>
-              <th>ethnicity</th>
-              <td>non-hispanic</td>
-            </tr>
-            <tr>
-              <th>language</th>
-              <td>english</td>
-            </tr>
-            <tr>
-              <th>btype</th>
-              <td>O</td>
-            </tr>
-            <tr>
-              <th>tobacco user</th>
-              <td>no</td>
-            </tr>         
-          </tbody>
-        </table>
-        <table class="providerInfo">
-          <tbody>
-            <tr>
-              <th>health plan</th>
-              <td>Harvard Pilgrim</td>
-            </tr>
-            <tr>
-              <th>policy number</th>
-              <td>XXFJIEWO5</td>
-            </tr>
-            <tr>
-              <th>p.c.p.</th>
-              <td>Dr. Jimi Hendrix</td>
-          </tbody>
-        </table>
-      </div>
-      <div id="patientRecords" class="main">
-        <div class="sectionHeadingbar"><h3>ALLERGIES</h3></div>
-          <p>penicillin</p>      
-        <div class="sectionHeadingbar"><h3>PHYSICAL EXAM FINDINGS</h3></div>
-          <table class="medGraph">
-            <tbody>
-              <tr>
-                <th></th>
-                <th></th>
-                <th>MEASUREMENT</th>
-                <th></th>
-                <th>RANGE</th>
-              </tr>
-              <tr>
-                <th>hgt</th>
-                <td>5'9"</td>
-              </tr>
-              <tr>
-                <th>wgt</th>
-                <td>IMG</td>
-                <td>196</td>
-                <td>lbs</td>
-                <td>170-180</td>
-              </tr>
-              <tr>
-                <th>bmi</th>
-                <td>IMG</td>
-                <td>28</td>
-                <td>kg/m2</td>
-                <td>< 25</td>
-              </tr>
-              <tr>
-                <th>waist circ.</th>
-                <td>IMG</td>
-                <td>38</td>
-                <td>inches</td>
-                <td>< 40</td>
-              </tr>
-              <tr>
-                <th>bp</th>
-                <td>IMG</td>
-                <td>133.93</td>
-                <td>mmHg</td>
-                <td>< 120/80</td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-        <div class="sectionHeadingbar"><h3>PROCEDURE</h3></div>
-          <h4></h4>
-        <div class="secondColumn">  
-          <div class="sectionHeadingbar"><h3>DIAGNOSIS</h3></div>
-            <h4></h4>
-          <div class="sectionHeadingbar"><h3>MEDICATIONS</h3></div>
-            <h4></h4>
-          <div class="sectionHeadingbar"><h3>LAB RESULTS</h3></div>
-            <table class="medGraph">
+
+    <div style="width: 85%; padding-left: 20px;">
+      <div class="section">
+        <div class="section-header">
+          <p>Michelle Brewer</p>
+           <button class="btn info float-right">
+            <%= link_to "Export Patient", :controller => "patients", :action => "export", :id => @patient.id %>
+           </button>
+        </div>
+          
+          <div class="span8" style="display: inline-block;">
+              <table class="zebra-striped condensed-table">
+                <tr><td><strong>Effective Date</strong></td><td>June 18, 2006</td></tr>
+                <tr><td><strong>DOB</strong></td><td><%= Time.at(@patient.birthdate).strftime("%d.%b.%Y") %></td></tr>
+                <tr><td><strong>Sex</strong></td><td><%= @patient.gender %></td></tr>
+              </table>
+          </div>
+           <div class="span8" style="display: inline-block; margin: 0 0 50px 20px;">
+              <table class="zebra-striped condensed-table">
+                <tr><td><strong>Health Plan</strong></td><td>Harvard Pilgrim</td></tr>
+                <tr><td><strong>Policy Number</strong></td><td>XXFJIEWO5</td></tr>
+                <tr><td><strong>P.C.P.</strong></td><td>Dr. Jimi Hendrix</td></tr>
+              </table>
+          </div>
+          <div class="span8" style="display: inline-block;">
+              <table class="zebra-striped condensed-table">
+                <tr><td><strong>Race</strong></td><td>White</td></tr>
+                <tr><td><strong>Ethnicity</strong></td><td>Non-hispanic</td></tr>
+                <tr><td><strong>Language</strong></td><td>English</td></tr>
+                <tr><td><strong>Blood type</strong></td><td>O</td></tr>
+                <tr><td><strong>Tobacco User</strong></td><td>No</td></tr>
+              </table>
+          </div>
+          
+          <hr>
+          
+          <div class="span8" id="allergies" style="display: inline-block;">
+            <div class="sectionHeadingbar"><h3>Allergies</h3></div>
+              <p>Penicillin</p>
+          </div>
+
+          <div class="span8" id="physical-exam" style="display: inline-block;">
+            <div class="sectionHeadingbar"><h3>Physical Exam Findings</h3></div>
+            <table class="condensed-table">
+              <thead>
+                <tr><th></th><th>Measurement</th><th>Range</td></tr>
+              </thead>
+                <tr><td><strong>Height</strong></td><td>5'9</td><td></td></tr>
+                <tr><td><strong>Weight</strong></td><td>196 LBS</td><td>170-180</td></tr>
+                <tr><td><strong>BMI</strong></td><td>28 kg/m2 </td><td> &lt; 25</td></tr>
+                <tr><td><strong>Waist Circ.</strong></td><td>38 inches</td><td> &lt; 40 </tr>
+                <tr><td><strong>BP</strong></td><td>133.93 mm/Hg</td><td> &lt; 120/80</tr>
+            </table>
+          </div>
+
+          <div class="span8" id="procedure" style="display: inline-block;">
+            <div class="sectionHeadingbar"><h3>Procedure</h3></div>
+          </div>
+          <div class="span8" id="diagnosis" style="display: inline-block;">
+            <div class="sectionHeadingbar"><h3>Diagnosis</h3></div>
+          </div>
+          <div class="span8" id="medications" style="display: inline-block;">
+            <div class="sectionHeadingbar"><h3>Medications</h3></div>
+          </div>
+
+          <div class="span8" id="lab-results" style="display: inline-block;">
+            <div class="sectionHeadingbar"><h3>LAB RESULTS</h3></div>
+            <table class="condensed-table">
               <tbody>
                 <tr>
                   <th></th>
@@ -216,8 +164,8 @@
               </tbody>
             </table>
           </div>
-        </div>
-        <div id="vaccines" class="main">
+
+         <div class="span8" id="vaccines" style="display: inline-block;"> 
           <div class="sectionHeadingbar"><h3>VACCINES</h3></div>
             <table>
               <tbody>
@@ -248,7 +196,10 @@
               </tbody>
             </table>
           </div>
-        </div>
-      </div>
+
+        </div><!-- close section -->
+    </div> <!-- close content-container -->
+
+    
     </div>
   </div>

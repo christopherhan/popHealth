@@ -1,23 +1,46 @@
-<%= @pct %>% of patients have conditions<br />
-<%= @with.length %> patients have a condition <br />
-<%= @without.length %> patients have no conditions <br /><br />
-<%= link_to "Export", :controller => "patients", :action => "export_conditions" %>
-<br />
-<%= @conditions.length %> Total Conditions 
-<table style="width: 80%">
-	<tr>
-		<th style="padding: 15px;">SNOWMED-CT</th>
-		<th style="padding: 15px;">Count</th>
-		<th style="padding: 15px;">Name</th>
-	</tr>
+<% content_for :head do %>
+<style type="text/css">
+body { background-color: #eee;}
+</style>
+<%end%>
 
-<% @conditions.each do |key, value| %>
-	<tr>
-		<td><%= link_to key, :controller => "patients", :action=>"condition", :q=>key %></td>
-		<td><%= value['count'] %></td>
-		<td><%= value['name'] %></td>
-	</tr>
-<% end %>
-</table>
+<div class="content-container">
+<div class="section">
+	<div class="section-header">
+		<p><%= @conditions.length %> Total Conditions</p>
+
+		<button class="btn info float-right">
+		<%= link_to "Export Conditions", :controller => "patients", :action => "export_conditions" %>
+		</button>
+	</div>
+
+	<div class="section-body">
+		<%= @pct %>% of patients have conditions<br />
+		<%= @with.length %> patients have a condition <br />
+		<%= @without.length %> patients have no conditions <br /><br />
+
+	</div>
+	
+	<table id="sortable" class="zebra-striped">
+	<thead>
+		<tr>
+			<th style="padding: 15px;">SNOWMED-CT</th>
+			<th style="padding: 15px;">Count</th>
+			<th style="padding: 15px;">Name</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @conditions.each do |key, value| %>
+		<tr>
+			<td><%= link_to key, :controller => "patients", :action=>"condition", :q=>key %></td>
+			<td><%= value['count'] %></td>
+			<td><%= value['name'] %></td>
+		</tr>
+		<% end %>
+	</tbody>
+	</table>
+
+</div>
+</div>
 
 

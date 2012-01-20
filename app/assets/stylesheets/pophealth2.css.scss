@@ -1,40 +1,3 @@
-
-html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, nav, section {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-weight: inherit;
-  font-style: inherit;
-  font-size: 100%;
-  font-family: inherit;
-  vertical-align: top; }
-
-article, aside, dialog, figure, footer, header, hgroup, nav, section {
-  display: block; }
-
-body {
-  line-height: 1.5; }
-
-table {
-  border-collapse: separate;
-  border-spacing: 0; }
-
-caption, th, td {
-  text-align: left;
-  font-weight: normal; }
-
-table, td, th {
-  vertical-align: middle; }
-
-blockquote:before, blockquote:after, q:before, q:after {
-  content: ""; }
-
-blockquote, q {
-  quotes: "" ""; }
-
-a img {
-  border: none; }
-
 $measurePopulationChartBar: #dddddd;
 $measurePopulationChartValue: black;
 $headerBkg: #eeeeee;
@@ -85,17 +48,7 @@ $radius: 5px;
   line-height: $line_height;
   margin-right: $margin;
 }
-
-html {
-  height: 100%; }
-
-body {
-  height: 100%;
-  font-family: "Myriad Pro", "Frutiger", Helvetica, Arial;
-  width: 100%;
-  min-width: 1000px; }
-
-#container, #dashboardContainer {
+#dashboardContainer {
   font-size: 0.9em;
   height: 100%; }
   
@@ -104,12 +57,6 @@ body {
       font-size: 1em;
   }
 
-a, {
-  color: black;
-  text-decoration: none; 
-  font-weight: 500;
-  }
-  
 #header {
   background: #f4f4f4;
   background: -moz-linear-gradient(top, #f8f8f8, #f0f0f0);
@@ -132,7 +79,8 @@ a, {
 
 #pageContent {
   height: 100%;
-  display: table; }
+  display: table;
+  width: 100%; }
 
 #breadcrumbBox {
   padding: 1px 0 2px;
@@ -413,14 +361,12 @@ a, {
       background-color: white;
       margin: 5px; } } }
 
-#providerReports {
+.sidebar {
   display: table-cell;
-  width: 285px;
   background-color: $providerReports;
   height: 100%;
   vertical-align: top;
   color: black;
-  padding: 0 5px 0 10px;
   border-right: 1px solid $borderColor;
   h3 {
     padding: 0 0 0 10px;
@@ -450,7 +396,6 @@ a, {
     padding: 10px 0 0px 10px;
     font-size: 1.4em; }
   .groupList {
-    background-color: $paramList;
     color: $measureList;
     margin: 5px 0;
     padding: 0 5px 10px 5px;
@@ -909,7 +854,6 @@ table.measureTable {
 		padding:5px 10px;
 		vertical-align:middle;
     min-width: 80px;
-    border-top: none; /* override bootstrap */
 	}
 	
 	td.percent {
@@ -960,3 +904,5 @@ table.measureTable {
     display: none;
   }
 }
+
+

@@ -1,18 +1,35 @@
-<%= link_to "Export", :controller => "patients", :action => "export_meds"%>
-<br />
-<%= @meds.length %> Total Medications
-<table style="width: 80%">
-	<tr>
-		<th style="padding: 15px;">RxNormID</th>
-		<th style="padding: 15px;">Count</th>
-		<th style="padding: 15px;">Name</th>
-	</tr>
+<% content_for :head do %>
+<style type="text/css">
+body { background-color: #eee;}
+</style>
+<%end%>
+<div class="content-container">
+<div class="section">
+	<div class="section-header">
+		<p><%= @meds.length %> Total Medications</p>
+		<button class="btn info float-right">
+		<%= link_to "Export Medications", :controller => "patients", :action => "export_meds"%>
+		</button>
+	</div>
+	
+	<table id="sortable" class="zebra-striped">
+		<thead>
+			<tr>
+				<th width="90">RxNormID</th>
+				<th width="75">Count</th>
+				<th>Name</th>
+			</tr>
+		</thead>
+		<tbody>
+		<% @meds.each do |key, value| %>
+			<tr>
+				<td><%= key %></td>
+				<td><%= value['count'] %></td>
+				<td><%= value['name'] %></td>
+			</tr>
+		<% end %>
+		</tbody>
+	</table>
+</div>
 
-<% @meds.each do |key, value| %>
-	<tr>
-		<td><%= key %></td>
-		<td><%= value['count'] %></td>
-		<td><%= value['name'] %></td>
-	</tr>
-<% end %>
-</table>
+</div>

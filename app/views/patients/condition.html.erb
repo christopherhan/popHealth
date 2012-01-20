@@ -1,13 +1,26 @@
-<%= link_to "Export", :controller => "patients", :action => "export_patients_with_condition", :q => @condition %>
+<% content_for :head do %>
+<style type="text/css">
+body { background-color: #eee;}
+</style>
+<%end%>
+<div class="content-container">
+<div class="section">
+<div class="section-header">
 <p><%= @patients.length %> Patients(s)</p>
-<table>
+<button class="btn info float-right">
+<%= link_to "Export Patients", :controller => "patients", :action => "export_patients_with_condition", :q => @condition %>
+</button>
+</div>
+<table id="sortable" class="zebra-striped">
+<thead>
 	<tr>
-		<td>Patient ID</td>
-		<td>First Name</td>
-		<td>Last Name</td>
-		<td>Gender</td>
-		<td>DOB</td>
+		<th>Patient ID</th>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Gender</th>
+		<th>DOB</th>
 	</tr>
+	</thead>
 <% @patients.each do |patient| %>
 	<tr>
 		<td><%= link_to patient.patient_id, :controller => "patients", :action=>"show", :id=>patient.id %></td>
@@ -18,3 +31,5 @@
 	</tr>
 <% end %>
 </table>
+</div>
+</div>

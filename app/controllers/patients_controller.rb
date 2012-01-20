@@ -11,6 +11,35 @@ class PatientsController < ApplicationController
   
   add_breadcrumb_dynamic([:patient], only: %w{show}) {|data| patient = data[:patient]; {title: "#{patient.last}, #{patient.first}", url: "/patients/show/#{patient.id}"}}
   
+
+  def index
+    @items_per_page = 20
+    @limit = (params[:limit] || @items_per_page).to_i
+    @skip = ((params[:page] || 1).to_i - 1 ) * @limit
+    sort = params[:sort] || "_id"
+    sort_order = params[:sort_order] || :asc
+    
+    result = Record.all
+    if params[:pid] and not params[:pid].empty?
+      result = result.where(:patient_id => "#{params[:pid]}")
+    end
+    if (params[:fn] and not params[:fn].empty?) or (params[:ln] and not params[:ln].empty?)
+      result = result.where(:first => /^(#{params[:fn]})/i).or(:last => /^(#{params[:ln]})/i)
+    end
+    if params[:con] and not params[:con].empty?
+      result = result.where("conditions.codes.SNOMED-CT" => params[:con])
+    end
+    if params[:med] and not params[:med].empty? 
+        result = result.where("medications.codes.RxNorm" => params[:med])
+    end
+    @records = result.order_by(["value.#{sort}", sort_order]).skip(@skip).limit(@limit);
+    @total = @records.count
+    @results = WillPaginate::Collection.create((params[:page] || 1), @limit, @total) do |pager|
+       pager.replace(@records)
+    end
+
+  end
+
   def show
   end
   

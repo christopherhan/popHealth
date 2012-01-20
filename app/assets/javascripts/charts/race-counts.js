@@ -6,7 +6,7 @@ $(document).ready(function() {
 		defaultSeriesType: 'bar'
 	},
 	title: {
-		text: 'Age Groups'
+		text: 'Patients by Race'
 	},
 	xAxis: {
 		categories: ['American Indian or Alaskan Native', 'Asian', 'Black or African American', 'Native Hawaiian Or Other Pacific Islander', 'White', 'Other Race'],

@@ -1,6 +1,12 @@
 <% content_for :head do %>
+<script type="text/javascript">
+	window.race_data = [107, 31, 191, 203, 100,100];
+</script>
 <style type="text/css">
-#age-gender, #age-groups { width: 50%; }
+body {
+	background-color: #fff;
+}
+#age-gender, #age-groups, #race-counts { width: 50%; float: left;}
 </style>
 <script type="text/javascript">
 	window.num_females = <%= @num_females %>;
