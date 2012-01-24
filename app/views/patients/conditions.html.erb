@@ -9,7 +9,7 @@ body { background-color: #eee;}
 	<div class="section-header">
 		<p><%= @conditions.length %> Total Conditions</p>
 
-		<button class="btn info float-right">
+		<button class="btn info float-right" onclick="window.location='/patients/conditions/export'"> 
 		<%= link_to "Export Conditions", :controller => "patients", :action => "export_conditions" %>
 		</button>
 	</div>
