@@ -12,29 +12,29 @@ body { background-color: #eee;}
 <%= form_tag("/patients/", :method => "get") do %>
 <div class="search-left">
   <div class="clearfix">
-    <%= label_tag(:fn, "First Name") %>
+    <%= label_tag(:fn, t('patient.first_name')) %>
     <div class="input"><%= text_field_tag(:fn, params[:fn]) %></div>
   </div>
   <div class="clearfix">
-    <%= label_tag(:ln, "Last Name") %>
+    <%= label_tag(:ln, t('patient.last_name')) %>
     <div class="input"><%= text_field_tag(:ln, params[:ln]) %></div>
   </div>
    <div class="clearfix">
-    <%= label_tag(:pid, "Patient ID") %>
+    <%= label_tag(:pid, t('patient.patient_id')) %>
     <div class="input"><%= text_field_tag(:pid, params[:pid]) %></div>
   </div>
 </div>
 <div class="search-right">
   <div class="clearfix">
-    <%= label_tag(:med, "Medication") %>
+    <%= label_tag(:med, t('medications.medication')) %>
     <div class="input"><%= text_field_tag(:med, params[:med]) %></div>
   </div>
   <div class="clearfix">
-    <%= label_tag(:con, "Condition") %>
+    <%= label_tag(:con, t('conditions.condition')) %>
     <div class="input"><%= text_field_tag(:con, params[:con]) %></div>
   </div>
   <div class="clearfix">
-    <%= label_tag(:al, "Allergy") %>
+    <%= label_tag(:al, t('conditions.allergy')) %>
     <div class="input"><%= text_field_tag(:al, params[:al]) %></div>
   </div>
 

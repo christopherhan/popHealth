@@ -79,15 +79,15 @@ es:
         practice: "Práctica"
         recalulate: "Recalcular"
         statistics: "estadística"
-
-
-
-
-
-
-
-
-
-
-
-
+    patient:
+        first_name: "Nombre de Pila"
+        last_name: "Apellido"
+        patient_id: "ID de Paciente"
+        gender: "Genero"
+        age: "Edad"
+    conditions:
+        condition: "Condición"
+        allergy: "Alergia"
+    medications:
+        medication: "Medicación"
+    

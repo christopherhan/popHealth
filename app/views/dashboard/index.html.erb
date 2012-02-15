@@ -1,6 +1,10 @@
 <% content_for :head do %>
 <script type="text/javascript">
-	window.race_data = [107, 31, 191, 203, 100,100];
+    var race_counts = <%= @race_counts %>;
+    var num_males = <%= @num_males%>;
+    var age_groups = <%= @age_groups %>;
+    var age_males = <%= @age_males %>;
+    var age_females = <%= @age_females %>;
 </script>
 <style type="text/css">
 body {

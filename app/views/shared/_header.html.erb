@@ -4,10 +4,10 @@
   <div class="container">
         <ul class="nav" style="position: relative; left: 220px;">
             <li><a href="/"><%= t('top_nav.qcm_reporting') %></a></li>
-            <li><a href="/dashboard"><%=  t('top_nav.statistics') %></a></li>
-            <li><a href="/patients"><%= t('top_nav.patients') %></a></li>
-            <li><a href="/patients/conditions"><%= t('top_nav.conditions') %></a></li>
-            <li><a href="/patients/medications"><%= t('top_nav.medications') %></a></li>
+            <li><a href="/dashboard"><%= t('top_nav.statistics') %></a></li>
+            <li><%= link_to t('top_nav.patients'), :controller => "patients", :action=>"index" %></li>
+            <li><%= link_to t('top_nav.conditions'), :controller => "patients", :action=>"conditions"%></li>
+            <li><%= link_to t('top_nav.medications'), :controller => 'patients', :action => "medications" %></li>
             <% if current_user.staff_role? || current_user.admin? %><li><%= link_to t('top_nav.providers'), providers_path %></li> <% end %>
 
         </ul>

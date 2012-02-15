@@ -2,17 +2,17 @@
 <div class="section">
 <div class="section-header">
     <p>All Patients &bull; <%= pluralize(@records.length, "record", "records") %> found</p>
-    <button class="btn info float-right" onclick="window.location='/patients/export'">Export Patients</button>
+    <button class="btn info float-right" onclick="window.location='/patients/export'">Export All Patients</button>
 </div>
 <table id="sortable" class="zebra-striped">
     <thead>
     <tr>
         <th>Row</th>
-        <th>Patient ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Gender</th>
-        <th>Age</th>
+        <th><%= t('patient.patient_id') %></th>
+        <th><%= t('patient.first_name') %></th>
+        <th><%= t('patient.last_name') %></th>
+        <th><%= t('patient.gender') %></th>
+        <th><%= t('patient.age') %></th>
         <th>DOB</th>
     </tr>
     </thead>

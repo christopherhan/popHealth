@@ -9,7 +9,12 @@ $(document).ready(function() {
 		text: 'Patients by Race'
 	},
 	xAxis: {
-		categories: ['American Indian or Alaskan Native', 'Asian', 'Black or African American', 'Native Hawaiian Or Other Pacific Islander', 'White', 'Other Race'],
+		categories: ['American Indian or Alaskan Native', 
+                     'Asian', 
+                     'Black or African American', 
+                     'Native Hawaiian Or Other Pacific Islander', 
+                     'White', 
+                     'Other Race'],
 		title: {
 			text: null
 		}
@@ -24,7 +29,7 @@ $(document).ready(function() {
 	tooltip: {
 		formatter: function() {
 			return ''+
-				 this.series.name +': '+ this.y +' millions';
+				 this.series.name +': '+ this.y;
 		}
 	},
 	plotOptions: {
@@ -50,7 +55,13 @@ $(document).ready(function() {
 	},
         series: [{
 		name: 'Patients',
-		data: [90, 99, 101, 98, 115,102]
+		data: [ 'American Indian Or Alaska Native' in race_counts ? race_counts['American Indian Or Alaska Native'] : 0,
+                'Asian' in race_counts ? race_counts['Asian'] : 0,
+                'Black Or African American' in race_counts ? race_counts['Black Or African American'] : 0,
+                'Native Hawaiian Or Other Pacific Islander' in race_counts ? race_counts['Native Hawaiian Or Other Pacific Islander'] : 0,
+                'White' in race_counts ? race_counts['White'] : 0,
+                'Other Race' in race_counts ? race_counts['Other Race'] : 0
+            ]
 	}]
 });
 

@@ -2,8 +2,19 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  index:
-    measures: "measures"
-    comparison: "comparison"
-    alternate_measures:
-        alt_measure: "Alternate Measures"
+    index:
+        measures: "measures"
+        comparison: "comparison"
+        alternate_measures:
+            alt_measure: "Alternate Measures"
+    patient:
+        first_name: "First Name"
+        last_name: "Last Name"
+        patient_id: "Patient ID"
+        gender: "Gender"
+        age: "Age"
+    conditions:
+        condition: "Condition"
+        allergy: "Allergy"
+    mediations:
+        medication: "Medication"

@@ -74,7 +74,6 @@ class Record
 
   def self.no_encounters_within(days)
     @patients = Record.where({ 'encounters.time' => { "$lte" => Time.now.to_i - days.days.to_i  }})
-    puts @patients.length
     return @patients
   end
   def self.is_numeric?(s)
@@ -88,7 +87,7 @@ class Record
 
     return Record.all(conditions:{"conditions.description" => param})
   end
-  
+
   def self.get_race_groups
     @groups = Hash.new()
     Race.all.each do |record|
@@ -97,21 +96,35 @@ class Record
     return @groups
   end
   
+  #note that records have a race and ethnicity code
   def self.get_races
     @groups = self.get_race_groups
     @counts = Hash.new()
     Record.all.each do |record|
-      @code = record.ethnicity['code']
+      @code = record.race['code']
       @groups.each_pair do |k,v|
         if v.include?(@code)
-          @counts.has_key?(k) ? @counts[k] += 1 : @counts[k] = 1
+            @counts.has_key?(k) ? @counts[k] += 1 : @counts[k] = 1
         end
       end
     end
-    return @counts
+    return @counts.to_json.html_safe
   end
   
   def self.get_ages
+    @age_males = Hash.new()
+    @age_females = Hash.new()
+
+    count_gender = Proc.new do |age, gender|
+        if gender == 'M'
+            @age_males.has_key?(age) ? @age_males[age] +=1 : @age_males[age] = 1
+        end
+
+        if gender == 'F'
+            @age_females.has_key?(age) ? @age_females[age] +=1 : @age_females[age] = 1
+        end
+    end
+    
     @ages = Hash.new()
     @age_groups = Hash[
       "0-10" => 0,
@@ -127,33 +140,43 @@ class Record
     Record.all.each do |record|
       @diff = distance_of_time_in_words_to_now(Time.at(record.birthdate))
       @age = /\d+/.match(@diff)[0]
-      
+      @gender = record.gender
       @ages.has_key?(@age) ? @ages[@age] += 1 : @ages[@age] = 0
 
       #is there a better way to do this in ruby
       case @age.to_i
       when 0..10
         @age_groups["0-10"] += 1
+        count_gender.call('0-10', @gender)
       when 10..18
         @age_groups["11-18"] += 1
+        count_gender.call('11-18', @gender)
       when 19..25
         @age_groups["19-25"] += 1
+        count_gender.call('19-25', @gender)
       when 26..35
         @age_groups["26-35"] += 1
+        count_gender.call('26-35', @gender)
       when 36..45
         @age_groups["36-45"] += 1
+        puts "found 1", @gender
+        count_gender.call('36-45', @gender)
       when 46..55
         @age_groups["46-55"] += 1
+        count_gender.call('46-55', @gender)
       when 56..65
         @age_groups["56-65"] += 1
+        count_gender.call('56-65', @gender)
       when 66..75
         @age_groups["66-75"] += 1
+        count_gender.call('66-75', @gender)
       else 
         @age_groups["76+"] += 1
+        count_gender.call('76+', @gender)
       end
     end
-    
-    return @ages, @age_groups
+    puts @age_females
+    return @ages.to_json.html_safe, @age_groups.to_json.html_safe, @age_males.to_json.html_safe, @age_females.to_json.html_safe
   end 
   
   def self.update_or_create(data)
