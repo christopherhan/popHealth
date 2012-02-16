@@ -27,23 +27,30 @@ class Record
       if record.medications.any?
         record.medications.each do |med|
           @key = med['codes']['RxNorm']
-          @rxnorm.has_key?(@key) ? @rxnorm[@key] += 1 : @rxnorm[@key] = 1
+          unless key.nil? or key.empty? or key.blank?
+            @rxnorm.has_key?(@key) ? @rxnorm[@key] += 1 : @rxnorm[@key] = 1
+          end
         end
       end
-    end    
-
+    end   
+    
     # uncomment to query API
     #@meds = Array.new
     #@rxnorm.each do|code, count|
-    #  @res = RestClient.get "http://rxnav.nlm.nih.gov/REST/rxcui/#{code[0]}", { :accept => :json }
-    #  @meds << @res
+    #  unless code.nil?
+    #    @res = RestClient.get "http://rxnav.nlm.nih.gov/REST/rxcui/#{code[0]}", { :accept => :json }
+    #    @meds << @res
+    #  end
     #end
+    
     
     @medications = Hash.new
     @rxnorm.each do|code, count|
-      @med = Medication.where(rxnormId: code[0])
-      @med.each do |m|
-        @medications[m.rxnormId] = {'count'=> @rxnorm[Array[code[0]]], 'name' => m.name } #TODO remove array by checking for nil above
+      unless code.nil? or code.empty? or code.blank?
+        @med = Medication.where(rxnormId: code[0])
+        @med.each do |m|
+          @medications[m.rxnormId] = {'count'=> @rxnorm[Array[code[0]]], 'name' => m.name } #TODO remove array by checking for nil above
+        end
       end
     end
     return @medications
