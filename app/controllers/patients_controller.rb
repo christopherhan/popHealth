@@ -145,7 +145,7 @@ class PatientsController < ApplicationController
   
   def export_patients_with_medication
     $patients = Record.get_patients_with_medication params[:q]
-    $medication = params[:q]
+    $medication = Medication.where(rxnormId: params[:q]).first()
 
     Prawn::Document.generate "patient_medications.pdf" do
       @rows = Array.new
@@ -166,9 +166,10 @@ class PatientsController < ApplicationController
       end
       
       grid([0,1],[0,4]).bounding_box do
-        
-        text "Patients using medication #{$condition}"
         font_size 8
+        text "Patients using medication: #{$medication.name}"
+        move_down 5
+        
         text "Generated on #{time.strftime("%B %d, %Y %I:%M %p")}"
         move_down 2
       end
