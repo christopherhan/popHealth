@@ -198,7 +198,22 @@ class PatientsController < ApplicationController
   
   def export_patients_with_condition
     $patients = Record.get_patients_with_condition params[:q]
-    $condition = params[:q]
+
+    @condition = $patients.first().conditions
+    
+    #is there a better way to query?
+    #maybe pass in name as get variable from the list?
+    @condition.each do |cond|
+        unless cond['codes'].empty?
+            if cond['codes'].has_key?('SNOMED-CT')
+                if cond['codes']['SNOMED-CT'][0].to_i == params[:q].to_i
+                    $condition_name = cond['description']
+                    break
+                end
+            end
+        end
+    end
+
     Prawn::Document.generate "patient_conditions.pdf" do
       @rows = Array.new
       @rows << ['<strong>Row</strong>', 
@@ -219,7 +234,7 @@ class PatientsController < ApplicationController
       
       grid([0,1],[0,4]).bounding_box do
         
-        text "Patients with #{$condition}"
+        text "Patients with #{$condition_name}"
         font_size 8
         text "Generated on #{time.strftime("%B %d, %Y %I:%M %p")}"
         move_down 2
