@@ -57,6 +57,11 @@ class PatientsController < ApplicationController
   def medications
     @meds = Record.get_medications      
   end
+
+  def medication
+    @patients = Record.get_patients_with_medication params[:q]
+    @medication = params[:q]
+  end
   
   def conditions
     @conditions, @with, @without = Record.get_conditions
@@ -137,7 +142,8 @@ class PatientsController < ApplicationController
     end
     redirect_to :back
   end  
-
+  
+  
   def export_patients_with_condition
     $patients = Record.get_patients_with_condition params[:q]
     $condition = params[:q]

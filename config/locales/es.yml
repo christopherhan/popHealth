@@ -48,7 +48,7 @@ es:
             diabetes: "Diabetes"
             heart_conditions: "Enfermedades del corazón"
         numerator: "Numerador"
-        denomiator: "Denominador"
+        denominator: "Denominador"
         measures: "Medidas"
         comparison: "Comparación"
         outliers: "Valores atípicos"

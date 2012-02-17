@@ -86,6 +86,12 @@ class Record
   def self.is_numeric?(s)
     !!Float(s) rescue false
   end
+
+  def self.get_patients_with_medication(param)
+    if self.is_numeric?(param)
+        return Record.all(conditions:{"medications.codes.RxNorm" => param})
+    end
+  end
   
   def self.get_patients_with_condition(param)
     if self.is_numeric?(param)

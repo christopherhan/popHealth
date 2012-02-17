@@ -21,7 +21,7 @@
     <% @results.each_with_index do |record, i|%>
         <tr>
             <td><%= i + 1 + ((params[:page] ? params[:page].to_i - 1 : 0 ) * @items_per_page.to_i ) %></td>
-            <td><%= link_to record.patient_id, :controller => "patients", :action=>"show", :id=>record.id %></td>
+            <td><%= link_to record.medical_record_number, :controller => "patients", :action=>"show", :id=>record.id %></td>
             <td><%= record.first.to_s %></td>
             <td><%= record.last %></td>
             <td><%= record.gender %></td>
